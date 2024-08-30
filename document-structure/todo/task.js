@@ -36,11 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         taskInput.focus();
     }
 
-    taskAddButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        addTask(taskInput.value);
-    });
-
     taskForm.addEventListener('submit', (event) => {
         event.preventDefault();
         addTask(taskInput.value);
