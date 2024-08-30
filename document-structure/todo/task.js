@@ -4,34 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskList = document.getElementById('tasks__list');
     const taskForm = document.getElementById('tasks__form');
 
-    function createTaskElement(taskTitle) {
-        const taskElement = document.createElement('div');
-        taskElement.className = 'task';
+    function addTask(taskTitle) {
+        if (taskTitle.trim() === '') return;
 
-        const taskTitleElement = document.createElement('div');
-        taskTitleElement.className = 'task__title';
-        taskTitleElement.textContent = taskTitle;
+        taskList.insertAdjacentHTML('afterbegin', `
+            <div class="task">
+                <div class="task__title">
+                    ${taskTitle}
+                </div>
+                <a href="#" class="task__remove">&times;</a>
+            </div>
+        `);
 
-        const taskRemoveButton = document.createElement('a');
-        taskRemoveButton.href = '#';
-        taskRemoveButton.className = 'task__remove';
-        taskRemoveButton.textContent = '×';
-
+        const taskRemoveButton = taskList.querySelector('.task:first-child .task__remove');
         taskRemoveButton.addEventListener('click', (event) => {
             event.preventDefault();
-            taskElement.remove();
+            taskRemoveButton.closest('.task').remove();
         });
 
-        taskElement.appendChild(taskTitleElement);
-        taskElement.appendChild(taskRemoveButton);
-
-        return taskElement;
-    }
-
-    function addTask(taskTitle) {
-        if (taskTitle.trim() === '') return; 
-        const taskElement = createTaskElement(taskTitle);
-        taskList.appendChild(taskElement);
         taskInput.value = '';
         taskInput.focus();
     }
