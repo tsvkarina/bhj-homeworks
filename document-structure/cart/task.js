@@ -11,23 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const productElement = document.querySelector(`.product[data-id="${productId}"]`);
             const productImageSrc = productElement.querySelector('.product__image').src;
 
-            const cartProduct = document.createElement('div');
-            cartProduct.className = 'cart__product';
-            cartProduct.dataset.id = productId;
+            cartProductsContainer.insertAdjacentHTML('beforeend', `
+                <div class="cart__product" data-id="${productId}">
+                    <img class="cart__product-image" src="${productImageSrc}">
+                    <div class="cart__product-count">${quantity}</div>
+                </div>
+            `);
 
-            const cartProductImage = document.createElement('img');
-            cartProductImage.className = 'cart__product-image';
-            cartProductImage.src = productImageSrc;
-
-            const cartProductCount = document.createElement('div');
-            cartProductCount.className = 'cart__product-count';
-            cartProductCount.textContent = quantity;
-
-            cartProduct.appendChild(cartProductImage);
-            cartProduct.appendChild(cartProductCount);
-
-            cartProductsContainer.appendChild(cartProduct);
-
+            const cartProduct = cartProductsContainer.querySelector(`.cart__product[data-id="${productId}"]`);
             animateProductAddition(productElement, cartProduct);
         }
     }
